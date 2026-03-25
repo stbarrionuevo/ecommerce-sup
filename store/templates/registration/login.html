@@ -1,0 +1,25 @@
+{% extends 'store/base.html'%} {% load socialaccount %}
+{%block content%}
+<div style="max-width: 400px; margin: 50px auto; text-align: center;">
+    <h2>Iniciar Sesión</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="text-align: left;">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">
+            Ingresar
+        </button>
+    </form>
+    <div style="text-align: center; margin-top: 20px;">
+    <p>O ingresá más rápido con:</p>
+    <a href="{% provider_login_url 'google' %}" style="display: inline-block; background-color: #ffffff; color: #757575; border: 1px solid #ddd; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" style="width: 20px; vertical-align: middle; margin-right: 10px;">
+        Continuar con Google
+    </a>
+</div>
+</div>
+{% endblock %}

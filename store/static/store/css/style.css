@@ -1,0 +1,287 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+
+:root {
+    --primary-blue: #1E40AF;  
+    --accent-yellow: #FBBF24; 
+    --bg-light: #F3F4F6;      
+    --text-dark: #1F2937;
+    --text-muted: #6B7280;
+    --success-green: #10B981;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: var(--primary-blue);
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 5%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.navbar .search-form input {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    width: 250px;
+}
+
+.navbar .search-form button {
+    background: var(--accent-yellow);
+    color: var(--text-dark);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    list-style: none;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #F9FAFB;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--accent-yellow);
+}
+
+.btn-logout {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 8px 15px;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.row { 
+    display: flex;  
+    justify-content: center; 
+    gap: 30px; 
+    flex-wrap: wrap; 
+}
+
+/* HERO BANNER (Agregado para el inicio) */
+.hero-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover;
+    border-radius: 15px;
+    padding: 80px 40px;
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+    box-shadow: var(--card-shadow);
+}
+
+.hero-banner h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent-yellow);
+}
+
+/* TARJETAS DE PRODUCTO */
+.product-card {
+    background-color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    width: 260px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.product-card h3 { 
+    font-size: 1.2rem; 
+    margin: 5px 0;
+    text-align: center;
+    color: var(--text-dark);
+}
+
+.product-card p { 
+    color: var(--primary-blue); 
+    font-weight: 700; 
+    font-size: 1.4rem; 
+    margin: 10px 0 15px 0;
+}
+
+.product-card select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos modernos para los formularios */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 5px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+/* BOTONES */
+.btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: auto;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn:hover { 
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* FOOTER */
+.footer {
+    background-color: var(--text-dark);
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: auto;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-column {
+    max-width: 300px;
+}
+
+.footer-column h3 {
+    color: var(--accent-yellow);
+    margin-top: 0;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    line-height: 2;
+}
+
+.footer-column ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #374151;
+    color: var(--text-muted);
+}

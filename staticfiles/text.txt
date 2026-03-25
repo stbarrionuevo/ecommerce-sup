@@ -1,0 +1,9 @@
+¡Exactamente! Diste en el clavo. 🎯🔨
+
+Django es muy "estructurado" (por no decir caprichoso). No podés mezclar peras con manzanas.
+
+Carpeta templates: Es SOLO para archivos .html (Estructura).
+
+Carpeta static: Es SOLO para archivos .css, .js, imágenes estáticas (Decoración).
+
+Si ponés el CSS adentro de templates, Django nunca lo va a encontrar porque la etiqueta {% static %} está programada para buscar exclusivamente en carpetas que se llamen static.

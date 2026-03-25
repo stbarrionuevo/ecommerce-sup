@@ -1,0 +1,35 @@
+
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+    <div style="background-color: #1E40AF; padding: 20px; text-align: center;">
+        <h1 style="color: white; margin: 0;">¡Gracias por tu compra, {{ orden.usuario.first_name }}! </h1>
+    </div>
+    
+    <div style="padding: 20px; background-color: #f8f9fa;">
+        <h2 style="color: #333;">Detalle de tu Orden #000{{ orden.id }}</h2>
+        <p><strong>Fecha:</strong> {{ orden.fecha|date:"d/m/Y H:i" }}</p>
+        <p><strong>Método de Envío:</strong> {{ orden.tipo_de_envio }}</p>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc;">
+        
+        <h3>Productos:</h3>
+        <ul>
+            {% for item in items %}
+                <li style="margin-bottom: 10px; display: flex; align-items: center; gap: 15px;">
+                    <img src="http://{{ dominio }}{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                    
+                    <span>{{ item.cantidad }}x {{ item.producto.nombre }} - ${{ item.producto.precio|floatformat:2 }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc;">
+        <h3 style="color: #1E40AF;">Total Pagado: ${{ orden.total_final|floatformat:2 }}</h3>
+        
+        {% if orden.metodo_pago == 'transferencia' %}
+            <div style="background-color: #fff3cd; padding: 15px; border-left: 5px solid #ffc107; margin-top: 20px;">
+                <p style="margin: 0;"><strong>⚠️ RECORDATORIO:</strong> Elegiste pagar por transferencia. No olvides enviar el comprobante a nuestro WhatsApp para que despachemos tu pedido.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+

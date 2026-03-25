@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="row">
+    <div style="background: white; padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; margin: auto; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        
+        {% if orden.metodo_pago == 'transferencia' %}
+            <h1 style="font-size: 3rem; margin: 0;">⏳</h1>
+            <h2 style="color: #dacf38;">Pedido Pendiente</h2>
+            <p>¡Completá la transferencia para confirmar el pedido!</p>
+            
+            <div style="background: #fdfae3; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: left;">
+                <p style="margin: 5px 0;"><strong>CBU:</strong> 00701682-30004042173101</p>
+                <p style="margin: 5px 0;"><strong>Alias:</strong> ARROZ.DIESEL.ROCA</p>
+                <p style="margin: 5px 0;"><strong>Nombre:</strong> BARRIONUEVO SANTIAGO</p>
+                <p style="margin: 5px 0;"><strong>Entidad:</strong> BANCO GALICIA</p>
+            </div>
+
+        {% elif orden.metodo_pago == 'efectivo' %}
+            
+            <h2 style="color: #10B981;">✅ ¡Pedido Registrado!</h2>
+            <p>Prepará los billetes. Te cobramos al entregar.</p>
+
+        {% else %}
+            <h1 style="font-size: 3rem; margin: 0;">✅</h1>
+            <h2 style="color: #10B981;">¡Pago Confirmado!</h2>
+            <p>Tu pedido está siendo preparado.</p>
+        {% endif %}
+
+        <hr>
+
+        <h3 style="color: #1E40AF;">Orden #000{{ orden.id }}</h3>
+        
+        <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <p><strong>Fecha:</strong> {{ orden.fecha|date:"d/m/Y H:i" }}</p>
+            <p><strong>Cliente:</strong> {{ orden.usuario.username }}</p>
+            <p><strong>Envío:</strong> {{ orden.tipo_de_envio }}</p>
+            <p><strong>Costo de Envío:</strong> ${{ orden.costo_de_envio|floatformat:2 }}</p>
+            
+            {% if orden.tipo_de_envio == 'Retiro en Local' %}
+                <div style="background-color: #ffe5e5; border-left: 4px solid #dc3545; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                    <p style="color: #dc3545; margin: 0; font-weight: bold;">
+                        Recordá que no tenés que pagar ningún costo adicional al retirar
+                    </p>
+                </div>
+            {% endif %}
+            
+            <hr>
+            <h3 style="margin-bottom: 0;">Total a Pagar: ${{ orden.total_final|floatformat:2 }}</h3>
+        </div>
+
+        <br>
+        <a href="{% url 'store' %}" class="btn" style="width: 100%;">Volver al Inicio</a>
+        
+    </div> </div>
+{% endblock %}

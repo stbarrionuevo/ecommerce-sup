@@ -1,0 +1,68 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="row" style="flex-direction: column; align-items: center;">
+    
+    <div style="background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 800px; box-shadow: var(--card-shadow); margin-bottom: 30px;">
+        <h2 style="color: var(--primary-blue); margin-top: 0;">👤 Mi Perfil</h2>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+        <p><strong>Usuario:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {% if user.email %}{{ user.email }}{% else %}<span style="color: gray;">No registrado</span>{% endif %}</p>
+        <p><strong>Fecha de registro:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
+    </div>
+
+    <div style="background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 800px; box-shadow: var(--card-shadow);">
+        <h2 style="color: var(--text-dark); margin-top: 0;">📦 Mis Compras</h2>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+        {% if ordenes %}
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: var(--bg-light); border-bottom: 2px solid #ddd;">
+                        <th style="padding: 12px;">Nº Orden</th>
+                        <th style="padding: 12px;">Fecha</th>
+                        <th style="padding: 12px;">Total</th>
+                        <th style="padding: 12px; text-align: center;">Estado</th> <th style="padding: 12px; text-align: center;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orden in ordenes %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px; font-weight: bold;">#000{{ orden.id }}</td>
+                        <td style="padding: 12px;">{{ orden.fecha|date:"d/m/Y" }}</td>
+                        <td style="padding: 12px; color: var(--success-green); font-weight: bold;">
+                            ${{ orden.total_final|floatformat:2 }}
+                        </td>
+                        
+                        <td style="padding: 12px; text-align: center;">
+                            {% if orden.pagado %}
+                                <span style="background: #10B981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold;">
+                                    ✅ Pagado
+                                </span>
+                            {% else %}
+                                <span style="background: #F59E0B; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold;">
+                                    ⏳ Pendiente
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td style="padding: 12px; text-align: center;">
+                            <a href="{% url 'ticket_exito' orden.id %}" style="text-decoration: none; color: var(--primary-blue); font-weight: 600;">
+                                Ver Detalle 
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="text-align: center; padding: 20px;">
+                <p style="color: var(--text-muted);">Todavía no hiciste ninguna compra!</p>
+                <br>
+                <a href="{% url 'store' %}" class="btn" style="width: auto;">Ir a la Tienda</a>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

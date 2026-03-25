@@ -1,0 +1,58 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if not query %}
+    <div class="hero-banner">
+        <h1>Superá tus límites</h1>
+        <p>Encontrá la mejor proteína, creatina y pre-entrenamientos para potenciar tu rutina. Stock renovado todas las semanas</p>
+    </div>
+    
+    <h2 style="color: var(--primary-blue); margin-bottom: 30px; text-align: center;">Nuestros Suplementos Destacados</h2>
+    {% endif %}
+
+    {% if query %}
+        <h2 style="text-align: center; color: var(--primary-blue); margin-bottom: 30px;">
+            Resultados para: "{{ query }}"
+        </h2>
+    {% endif %}
+
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-card">
+                    <img src="{{ product.imagen.url }}" alt="{{ product.nombre }}">
+                    <h3>{{ product.nombre }}</h3>
+                    <p>${{ product.precio }}</p>
+                    
+                    {% if product.variaciones.all %}
+                        <form action="{% url 'agregar_al_carrito' product.id %}" method="POST" style="width: 100%;">
+                            {% csrf_token %}
+                            <select name="variacion_id" required>
+                                <option value="" disabled selected>Elegí una opción...</option>
+                                {% for var in product.variaciones.all %}
+                                    <option value="{{ var.id }}">{{ var.valor }} (Stock: {{ var.stock }})</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn">Agregar al Carrito</button>
+                        </form>
+                    {% else %}  
+                        <form action="{% url 'agregar_al_carrito' product.id %}" method="POST" style="width: 100%; margin-top: auto;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Agregar al Carrito</button>
+                        </form>
+                    {% endif %} 
+                </div>
+            {% endfor %} 
+            
+        {% else %}
+            <div style="text-align: center; width: 100%; padding: 50px;">
+                <h2 style="color: var(--text-dark);">No encontramos nada con ese nombre</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Probá buscando por categoría o revisá que esté bien escrito.</p>
+                <a href="{% url 'store' %}" class="btn" style="display: inline-block; width: auto;">Ver todo el catálogo</a>
+            </div>
+        {% endif %} 
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<div style="max-width: 500px; margin: 40px auto; padding: 30px; background: white; box-shadow: var(--card-shadow, 0 4px 10px rgba(0,0,0,0.1)); border-radius: 12px;">
+    
+    <h2 style="text-align: center; color: var(--text-dark); margin-bottom: 25px;">Crear Cuenta Nueva</h2>
+    
+    <form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Usuario:</label>
+            {{ form.username }}
+            <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.username.errors }}</div>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <div class="form-group" style="flex: 1;">
+                <label for="{{ form.first_name.id_for_label }}">Nombre:</label>
+                {{ form.first_name }}
+                <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.first_name.errors }}</div>
+            </div>
+
+            <div class="form-group" style="flex: 1;">
+                <label for="{{ form.last_name.id_for_label }}">Apellido:</label>
+                {{ form.last_name }}
+                <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.last_name.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.email.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Contraseña:</label>
+            {{ form.password1 }} 
+            <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.password1.errors }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Repetir Contraseña:</label>
+            {{ form.password2 }}
+            <div style="color: #dc3545; font-size: 0.8em; margin-top: 5px;">{{ form.password2.errors }}</div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div style="border-left: 4px solid #dc3545; background-color: #ffe5e5; padding: 10px; color: #dc3545; border-radius: 4px; font-size: 0.9rem;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Registrarse</button>
+
+    </form>
+
+    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+        ¿Ya tenés cuenta? 
+        <a href="{% url 'login' %}" style="color: var(--primary-blue); font-weight: 600; text-decoration: none;">Logueate acá</a>
+    </p>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 style="text-align: center;">Mi carrito</h1>
+<br>
+
+<div class="row">
+    <div style="box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 20px; border-radius: 10px; width: 100%;">
+        
+        <div class="info-personal">
+            {% if items %}
+                <h2>Cliente: {{ orden.usuario }}</h2>
+                <p>Fecha de creación: {{ orden.fecha|date:"d/m/Y" }}</p>
+                <hr>
+            {% else %}
+                <div style="text-align: center; padding: 20px;">
+                    <h3>🛒 Tu carrito está vacío, aprovechá las ofertas disponibles.</h3>
+                    <br>
+                    <a href="{% url 'store' %}" class="btn">Ir a buscar productos</a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if items %}
+            
+            {% for item in items %}
+            <div class="cart-row" style="display: flex; align-items: center; border-bottom: 1px solid #eee; padding: 10px;">
+                
+                <div style="flex:1">
+                    {% if item.producto.imagen %}
+                        <img src="{{ item.producto.imagen.url }}" style="width: 50px;">
+                    {% endif %}
+                </div>
+
+                <div style="flex:2">
+                    <p><strong>{{ item.producto.nombre }}</strong></p>
+                </div>
+
+                <div style="flex:1">
+                    <p>${{ item.producto.precio|floatformat:2 }}</p>
+                </div>
+                
+                <div style="flex:1">
+                    <p>{{ item.producto.categoria|title }}</p>
+                </div>
+
+                <div style="flex:1">
+                    <p>x{{ item.cantidad }}</p>
+                </div>
+                
+                <div style="flex:1">
+                    {% if item.variacion %}
+                        <span style="background: #eee; padding: 3px 8px; border-radius: 4px; font-size: 0.9em;">
+                            {{ item.variacion.valor }}
+                        </span>
+                    {% else %}
+                        <span>-</span>
+                    {% endif %}
+                </div>
+
+                <div style="flex:1">
+                    <strong>${{ item.total|floatformat:2 }}</strong>
+                </div>
+
+            </div>
+            {% endfor %}
+
+            <br>
+            <div style="text-align: right; margin-top: 20px;">
+                <h2 style="color: #28a745;">Total a Pagar: ${{ orden.precio_total|floatformat:2 }}</h2>
+                <br>
+                <a href="{% url 'checkout' %}" class="btn" style="padding: 10px 20px; font-size: 1.2em;">PAGAR</a>
+            </div>
+
+        {% endif %} </div>
+</div>
+{% endblock content %}

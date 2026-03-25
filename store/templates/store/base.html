@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce de suplementos</title>
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+
+<body> 
+    <nav class="navbar">
+        <form action="{% url 'store' %}" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Buscar productos..." value="{{ query|default:'' }}">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <ul>
+            <li><a href="{% url 'store' %}">Inicio</a></li>
+            <li><a href="{% url 'carrito' %}">Carrito</a></li>
+
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'perfil' %}" style="color: var(--accent-yellow);">
+                        Hola, {{ user.username }}
+                    </a>
+                </li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline; margin: 0; padding: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">Salir</button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Ingresar</a></li>
+                <li>
+                    <a href="{% url 'registro' %}" style="color: var(--accent-yellow);">Crear Cuenta</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% if messages %}
+        <div class="container" style="padding-bottom: 0;">
+            {% for message in messages %}
+                <div style="padding: 15px; margin-bottom: 10px; border-radius: 8px; font-weight: 600; text-align: center;
+                            {% if message.tags == 'error' %} background-color: #f8d7da; color: #721c24;
+                            {% elif message.tags == 'success' %} background-color: #d4edda; color: #155724;
+                            {% else %} background-color: #e2e3e5; color: #383d41;
+                            {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>FitStore</h3>
+                <p>Llevamos tu entrenamiento al próximo nivel con los mejores suplementos del mercado. Calidad garantizada.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4 style="margin-top: 0;">Navegación</h4>
+                <ul>
+                    <li><a href="{% url 'store' %}">Todos los productos</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4 style="margin-top: 0;">Contacto</h4>
+                <ul>
+                    <li>📍 Envíos a todo el país</li>
+                    <li>✉️ soporte@fitstore.com.ar</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>Copyright © 2026 - FitStore. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body> 
+</html>
